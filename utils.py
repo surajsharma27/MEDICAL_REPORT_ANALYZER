@@ -8,14 +8,23 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 
 
 # ---------------- OCR FUNCTION ----------------
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def extract_text(_image):
 
     try:
         img = np.array(_image.convert("RGB"))
         gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
+        gray = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
         gray = cv2.bilateralFilter(gray, 9, 75, 75)
+        gray = cv2.adaptiveThreshold(
+            gray,
+            255,
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+            cv2.THRESH_BINARY,
+            31,
+            8,
+        )
 
         text = pytesseract.image_to_string(gray, config="--oem 3 --psm 6")
 
@@ -33,22 +42,24 @@ def extract_values(text):
     if not text:
         return data
 
-    normalized = re.sub(r"\s+", " ", text.lower())
+    normalized = re.sub(r"[\n\r\t]+", " ", text.lower())
+    normalized = re.sub(r"\s+", " ", normalized)
 
     patterns = {
         "Glucose": [
-            r"(?:glucose|blood sugar|sugar|fbs|fasting blood sugar|rbs|random blood sugar|ppbs)\D{0,25}(\d{2,3}(?:\.\d+)?)",
+            r"(?:glucose|blood glucose|plasma glucose|glu|fpg|fbs|fasting blood sugar|fasting plasma glucose|blood sugar|sugar|rbs|random blood sugar|ppbs|post prandial blood sugar)\D{0,35}(\d{2,3}(?:\.\d+)?)",
         ],
         "BloodPressure": [
-            r"(?:blood pressure|bp|b\.p\.)\D{0,20}(\d{2,3})\s*/\s*(\d{2,3})",
-            r"(?:systolic)\D{0,20}(\d{2,3})",
+            r"(?:blood pressure|bp|b\.p\.|b p)\D{0,25}(\d{2,3})\s*(?:/|over|-)\s*(\d{2,3})",
+            r"(?:systolic|sys)\D{0,25}(\d{2,3})",
         ],
         "BMI": [
-            r"(?:bmi|body mass index)\D{0,20}(\d{1,2}(?:\.\d+)?)",
+            r"(?:bmi|body mass index)\D{0,25}(\d{1,2}(?:\.\d+)?)",
         ],
         "Age": [
-            r"(?:age|years old|yrs old|y/o)\D{0,15}(\d{1,3})",
+            r"(?:age|age/sex|years old|yrs old|y/o)\D{0,20}(\d{1,3})",
             r"(\d{1,3})\s*(?:years|yrs)\b",
+            r"\b(\d{1,3})\s*/\s*(?:m|f|male|female)\b",
         ],
     }
 

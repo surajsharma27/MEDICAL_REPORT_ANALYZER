@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Medical Report Analyzer
 
 AI Medical Report Analyzer is a Streamlit-based application that reads medical reports using OCR and predicts diabetes risk using machine learning.
@@ -38,3 +39,6 @@ ui.py           # User interface
 utils.py        # OCR and value extraction
 model.pkl       # Trained ML model
 train_model.ipynb
+=======
+# MEDICAL_REPORT_ANALYZER
+>>>>>>> fdb0316e82b280afc97490728aa4dcaa8d2a9c56

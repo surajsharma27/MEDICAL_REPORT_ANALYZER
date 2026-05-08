@@ -1,0 +1,100 @@
+
+---
+
+## Simple Project Report
+
+```md
+# PROJECT REPORT
+# AI Medical Report Analyzer
+
+## Introduction
+
+AI Medical Report Analyzer is a healthcare application that reads medical reports using OCR and predicts diabetes risk using machine learning.
+
+The system also generates a doctor-style explanation to help users understand their reports.
+
+---
+
+## Objectives
+
+- Extract text from medical reports
+- Detect important medical values
+- Predict diabetes risk
+- Generate simple medical summaries
+
+---
+
+## Technologies Used
+
+- Python
+- Streamlit
+- OpenCV
+- Tesseract OCR
+- Scikit-learn
+- Pandas
+- Matplotlib
+
+---
+
+## Modules
+
+### 1. OCR Module
+Extracts text from uploaded reports.
+
+### 2. Value Extraction Module
+Finds:
+- Glucose
+- Blood Pressure
+- BMI
+- Age
+
+### 3. Prediction Module
+Predicts diabetes risk using ML model.
+
+### 4. AI Report Module
+Generates doctor-style summary and recommendations.
+
+---
+
+## Working
+
+1. User uploads report
+2. OCR extracts text
+3. Important values are detected
+4. ML model predicts risk
+5. Results are shown on screen
+
+---
+
+## Features
+
+- PDF and image upload
+- OCR text extraction
+- Diabetes risk prediction
+- AI-generated summary
+- Interactive chatbot
+
+---
+
+## Advantages
+
+- Easy to use
+- Fast analysis
+- User-friendly interface
+- Helpful for basic health understanding
+
+---
+
+## Limitations
+
+- OCR accuracy depends on image quality
+- Not a replacement for doctors
+- Supports limited medical values
+
+---
+
+## Conclusion
+
+The AI Medical Report Analyzer helps users understand medical reports quickly using OCR, machine learning, and AI technologies.
+
+It provides simple health insights and improves accessibility to medical information.
